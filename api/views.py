@@ -2,6 +2,7 @@ from django.contrib.auth.models import User, Group
 import django_filters
 from drf_haystack.viewsets import HaystackViewSet
 from rest_framework import viewsets
+from rest_framework.decorators import action
 
 from api import models
 from api import serializers
@@ -66,6 +67,7 @@ class SpellViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint that allows viewing of spells.
     """
+    # For normal queries, use objects.all()
     queryset = models.Spell.objects.all()
     filter_class=SpellFilter
     serializer_class = serializers.SpellSerializer
@@ -85,6 +87,22 @@ class SpellViewSet(viewsets.ReadOnlyModelViewSet):
         'dnd_class',
         'document__slug',
     )
+
+    @action(detail=False)
+    def random(self, request):
+        """
+        API endpoint that allows viewing of spells, but ordered randomly.
+        """
+        # For randomized queries, used order_by('?')
+        randomized_spells = models.Spell.objects.all().order_by('?')
+
+        page = self.paginate_queryset(randomized_spells)
+        if page is not None:
+            serializer = self.get_serializer(page, many=True)
+            return self.get_paginated_response(serializer.data)
+
+        serializer = self.get_serializer(randomized_spells, many=True)
+        return Response(serializer.data)
 
 class MonsterViewSet(viewsets.ReadOnlyModelViewSet):
     """
