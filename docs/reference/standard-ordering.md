@@ -1,0 +1,1 @@
+All fields in the list objects are available to sort on in ascending or descending alphabetical order 
