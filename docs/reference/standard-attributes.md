@@ -8,7 +8,7 @@ A basic name of the content item.
 
 A [slugified](https://docs.djangoproject.com/en/4.1/ref/utils/#django.utils.text.slugify) version of the name.
 
-* In some scenarios, object slugs would conflict. In general, we append a short suffix based on the origin of the later addition, such as **aboleth** and **aboleth-a5e**.
+* In some scenarios, object slugs would conflict. In general, we append a short suffix based on the document origin slug of the later addition, such as **aboleth** and **aboleth-a5e**.
 
 **document__slug** string
 A slug that refers to a [Document]. This document is the source of this content item.
