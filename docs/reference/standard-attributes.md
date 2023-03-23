@@ -17,4 +17,4 @@ A slug that refers to a [Document]. This document is the source of this content 
 The title of the document referred to by the slug.
 
 **document__license_url**
-A url that links to a license for the document.
+A url that links to a license for the document. *Not available in all responses.
